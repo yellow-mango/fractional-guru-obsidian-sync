@@ -34,13 +34,3 @@ Deleting a local note which was previously synced queues removal from Fractional
 ## Development and tests
 
 No build step or external runtime dependencies are required: `main.js` is the deployable source. With Node.js 20+ run `npm test` to execute the mocked API and selection tests. The repository never needs to contain a real token.
-
-## Publish to the Obsidian Community Plugins directory
-
-Once the backend and real-world tests are complete:
-
-1. Publish this folder (excluding local `data.json`) as a public GitHub repository; keep `README.md`, `LICENSE`, `manifest.json` and `versions.json` at its root.
-2. Make a GitHub release tagged exactly `0.1.0` (without `v`) and attach **`main.js`, `manifest.json` and `styles.css`** as individual release assets.
-3. Sign in to the Obsidian community portal, link your GitHub account and submit the plugin for review at https://community.obsidian.md. Fix any automated or human review feedback before public release.
-
-Check current Obsidian official guidelines before submission: https://docs.obsidian.md/Plugins/Releasing/Submit%20your%20plugin and https://docs.obsidian.md/community-directory/submission-requirements-for-plugins . This ZIP is an installable **development package**, not evidence of approval or live backend compatibility.
