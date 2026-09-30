@@ -1,0 +1,8 @@
+{
+  "name": "fractional-guru-sync",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Dependency-free Obsidian plugin for syncing selected Markdown knowledge to Fractional Guru",
+  "scripts": { "test": "node --test tests/*.test.cjs", "check": "node --check main.js && npm test" },
+  "license": "MIT"
+}
