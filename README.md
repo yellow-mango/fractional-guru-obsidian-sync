@@ -2,7 +2,7 @@
 
 Sync **only the Markdown notes and folders you choose** from the current Obsidian vault into your Fractional Guru knowledge base. This is a one-way integration: Obsidian remains the source of truth, and the plugin never edits your local notes.
 
-> **Integration status:** This repository contains a working Obsidian client and mocked client-side tests. Real end-to-end sync requires the Fractional Guru backend endpoints and token issuance described in [`server-contract/INTEGRATION.md`](server-contract/INTEGRATION.md). Do not publish as fully working until those routes are deployed and real-vault acceptance testing is complete.
+> **Integration status:** The backend routes in [`server-contract/INTEGRATION.md`](server-contract/INTEGRATION.md) are live at `https://fractional.guru`. Create an integration token under **Knowledge → Connected sources → Get an integration token** and paste it into the plugin's settings. Real-vault acceptance testing across desktop and mobile is still outstanding.
 
 ## Features
 
@@ -15,13 +15,17 @@ Sync **only the Markdown notes and folders you choose** from the current Obsidia
 - Maximum size: 1 MB per Markdown note. Non-Markdown attachments, PDFs, bidirectional sync and merge/conflict resolution are deliberately out of scope for v0.1.
 - Desktop/mobile-compatible design using the Obsidian API and standard Web Crypto; **actual mobile runtime testing remains outstanding**.
 
-## Install locally for testing
+## Install
 
-1. Create `.obsidian/plugins/fractional-guru-sync/` in the **vault that you want to connect**.
-2. Copy `main.js`, `manifest.json` and `styles.css` from this project into that folder.
-3. Restart or reload Obsidian; in Settings > Community plugins enable **Fractional Guru Sync**.
-4. When your Fractional Guru account exposes Obsidian integration tokens, generate one from the Guru's account and paste it in plugin settings. Verify the connection.
-5. Select folders or notes, choose **Sync selected notes**, carefully review the first-sync confirmation, then optionally enable automatic syncing.
+Install **Fractional Guru Sync** from the community directory: in Obsidian open **Settings → Community plugins → Browse**, search for the plugin, install it and enable it. It is listed at [community.obsidian.md/plugins/fractional-guru-sync](https://community.obsidian.md/plugins/fractional-guru-sync).
+
+To install manually instead, create `.obsidian/plugins/fractional-guru-sync/` in the **vault that you want to connect**, copy `main.js`, `manifest.json` and `styles.css` from this project into that folder, and restart or reload Obsidian.
+
+Then, either way:
+
+1. On fractional.guru open **Knowledge → Connected sources → Get an integration token** and create a token.
+2. Paste it into the plugin's **Integration token** setting and press **Connect / verify**.
+3. Select folders or notes, choose **Sync selected notes**, carefully review the first-sync confirmation, then optionally enable automatic syncing.
 
 **Vault selection:** Obsidian plugins run within the vault where installed; install the plugin in each vault you intend to connect. Each installation generates a vault-specific ID and has independent folder/note selections and token settings.
 
@@ -34,3 +38,13 @@ Deleting a local note which was previously synced queues removal from Fractional
 ## Development and tests
 
 No build step or external runtime dependencies are required: `main.js` is the deployable source. With Node.js 20+ run `npm test` to execute the mocked API and selection tests. The repository never needs to contain a real token.
+
+## Releases
+
+Obsidian installs from a GitHub release, and the rules are strict:
+
+1. Keep `README.md`, `LICENSE`, `manifest.json` and `versions.json` at the repository root.
+2. Create a release whose tag is **exactly** the `manifest.json` `version`, with no `v` prefix, and attach **`main.js`, `manifest.json` and `styles.css`** as individual release assets.
+3. For each new version, bump `manifest.json`, add the matching entry to `versions.json`, and repeat.
+
+A release with no assets, or a tag that does not match the manifest version, produces a listing that cannot be installed from inside Obsidian.
